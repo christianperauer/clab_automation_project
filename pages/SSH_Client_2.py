@@ -13,7 +13,7 @@ try:
     # Create SSH Client
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(device, port=port, username=user_name, passwrd=passwd)
+    ssh.connect(device, username=user_name, passwrd=passwd)
     print('Successfully Connected to %s' % device)
 
     remote_conn = ssh.invoke_shell()
