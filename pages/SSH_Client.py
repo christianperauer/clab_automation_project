@@ -4,8 +4,8 @@ import time
 
 hostname = '172.20.20.2'
 port = 22
-user = 'admin'
-passwd = 'admin'
+user = 'arista'
+passwd = 'arista'
 
 try:
     client = SSHClient()
