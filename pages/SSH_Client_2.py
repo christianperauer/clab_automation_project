@@ -21,30 +21,46 @@ try:
 
     # Access device privileged mode and disable Paging on Remote Device
     remote_conn.send('terminal length 0\n')
-    remote_conn.send('enable\n')
+    # remote_conn.send('enable\n')
     time.sleep(2)
-    if remote_conn.recv_ready() and 'password' in remote_conn.recv(5000):
-        remote_conn.send(enable_passwd)
-    else:
-        # output = remote_conn.recv(65000)
-        print(output)
+
+
+    # Clearing output.
+    if remote_conn.recv_ready():
+        output = remote_conn.recv(1000)
+
+    # Send Command.
+    cmd = input(f'{device} - #> ')
+    remote_conn.send(cmd) # I only want output from this command.
+    time.sleep(2)
+    # Getting output I want.
+    if remote_conn.recv_ready():
+     output = remote_conn.recv(5000)
+    print(output)
+
+
+    # if remote_conn.recv_ready() and 'password' in remote_conn.recv(5000):
+    #     remote_conn.send(enable_passwd)
+    # else:
+    #     # output = remote_conn.recv(65000)
+    #     print(output)
 
     # Create Loop fo CLI Client Exec
-    while True:
-        try:
-            cmd = input(f'{device} - #> ')
-            if cmd == 'exit':
-                break
-            elif remote_conn.recv_ready():
-                # Sending the CLI command
-                remote_conn.send(cmd)
-                time.sleep(2)
-                # Getting the output
-                output = remote_conn.recv(65000)
-                print(output)
-            else:
-                print('Error Check')
-        except KeyboardInterrupt:
-            break
+    # while True:
+    #     try:
+    #         cmd = input(f'{device} - #> ')
+    #         if cmd == 'exit':
+    #             break
+    #         elif remote_conn.recv_ready():
+    #             # Sending the CLI command
+    #             remote_conn.send(cmd)
+    #             time.sleep(2)
+    #             # Getting the output
+    #             output = remote_conn.recv(65000)
+    #             print(output)
+    #         else:
+    #             print('Error Check')
+    #     except KeyboardInterrupt:
+    #         break
 except:
     pass
