@@ -12,7 +12,7 @@ while True:
     command = raw_input('cli: ')
     if command == 'q': break
     conn.execute(command)
-    print conn.response
+    print(conn.response)
 
 
 
