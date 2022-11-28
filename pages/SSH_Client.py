@@ -16,9 +16,9 @@ try:
     channel.invoke_shell()
     while True:
         try:
-            channel.send('enable' + '\n')
+            channel.send('enable')
             time.sleep(1)
-            channel.send(passwd + '\n')
+            channel.send(passwd)
             time.sleep(1)
             cmd = input(f'{hostname} - $> ')
             if cmd == 'exit': break
