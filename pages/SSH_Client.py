@@ -11,7 +11,7 @@ def ssh_to_dev():
         if submitted:
             with st.spinner(text="Conecting to device %s" % option):
                 opt_check = connect_to_device(option)
-            if opt_check.returncode == 0 and opt_check.stdout == '':
+            if opt_check.stdout is not None:
                 # with st.spinner(text="Connecting..."):
                 #     ssh_session = connect_to_device(option)
                 st.success("Connected!", icon="✅")
@@ -19,11 +19,11 @@ def ssh_to_dev():
                 #     st.success('Connected via SSH successfully!', icon="✅")
                 with st.expander("Connection details"):
                     st.code(opt_check.stdout)
-            elif opt_check.returncode == 1:
+            elif opt_check.stdout is None:
                 st.error("There was a problem connecting to the device", icon="🚨")
                 with st.expander("Connection logs"):
                     st.text(opt_check.stderr)
-            elif opt_check.returncode == 0 and opt_check.stdout is not None:
+            elif opt_check is not None and opt_check.stdout is not None:
                 st.warning('Connection already established', icon="⚠️")
                 with st.expander("Connection details"):
                     st.code(opt_check.stdout)
