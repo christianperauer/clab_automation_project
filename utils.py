@@ -35,8 +35,8 @@ def connect_to_device(dev_option):
                 if cmd == 'exit':
                     break
                 stdin, stdout, stderr = client.exec_command(cmd)
-                return st.code(stdout)
-                print(stdout.read().decode())
+                #return st.code(stdout)
+                return stdout.read().decode()
             except KeyboardInterrupt:
                 break
         client.close()
