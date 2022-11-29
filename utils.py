@@ -41,4 +41,4 @@ def connect_to_device(dev_option):
                 break
         client.close()
     except Exception as err:
-        print(std(err))
+        return err
