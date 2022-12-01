@@ -19,28 +19,42 @@ def destroy_lab(lab_option):
 
 
 
-def connect_to_device(dev_option):
+# def connect_to_device(dev_option):
 
-    hostname = dev_option
-    port = 22
-    user = 'arista'
-    passwd = 'arista'
+#     hostname = dev_option
+#     port = 22
+#     user = 'arista'
+#     passwd = 'arista'
 
-    try:
-        client = SSHClient()
-        client.load_system_host_keys()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(hostname, port=port, username=user, password=passwd)
-        while True:
-            try:
-                cmd = input(f'{hostname} - $> ')
-                if cmd == 'exit':
-                    break
-                stdin, stdout, stderr = client.exec_command(cmd)
-                #return st.code(stdout)
-                return stdout.read().decode()
-            except KeyboardInterrupt:
-                break
-        client.close()
-    except Exception as err:
-        return err
+#     try:
+#         client = SSHClient()
+#         client.load_system_host_keys()
+#         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#         client.connect(hostname, port=port, username=user, password=passwd)
+#         while True:
+#             try:
+#                 cmd = input(f'{hostname} - $> ')
+#                 if cmd == 'exit':
+#                     break
+#                 stdin, stdout, stderr = client.exec_command(cmd)
+#                 #return st.code(stdout)
+#                 return stdout.read().decode()
+#             except KeyboardInterrupt:
+#                 break
+#         client.close()
+#     except Exception as err:
+#         return err
+
+
+def send_cmd(conn, command):
+    """
+    Given an open connection and a command, issue the command and wait one second for the command to be processed
+    """
+    conn.send(command + "\n")
+    time.sleep(1.0)
+
+def get_output(conn):
+    """
+    Given an open connection, read all the data from the buffer and decode the byte string as UTF-8
+    """
+    return conn.recv(65535).decode()
