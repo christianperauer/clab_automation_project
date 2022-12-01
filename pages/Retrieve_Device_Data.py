@@ -40,7 +40,7 @@ def main():
                 conn = conn_params.invoke_shell()
                 time.sleep(1.0)
 
-                st.write(f"Logged into {get_output(conn).strip()} sucessfully") #Original line is print(f"Logged into {get_output(conn).strip()} sucessfully")
+                st.write(f"Logged into {get_output(conn).strip()} sucessfully")
 
                 commands = [
                     cmd,
