@@ -18,43 +18,43 @@ def main():
         )
 
     submitted = st.form_submit_button("Retrieve Data")
-        if submitted:
-            #For each host in the inventory dict, extract key and value
-            for hostname, cmd in host_dict.items():
-                #Paramiko can be SSH client or server; use client here
-                conn_params = paramiko.SSHClient()
+    if submitted:
+        #For each host in the inventory dict, extract key and value
+        for hostname, cmd in host_dict.items():
+            #Paramiko can be SSH client or server; use client here
+            conn_params = paramiko.SSHClient()
 
-                #Preventing paramiko to refuse connections due to missing SSH keys
-                conn_params.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                conn_params.connect(
-                    hostname = hostname,
-                    port = 22,
-                    username = "admin",
-                    password = "admin",
-                    look_for_keys = False,
-                    allow_agent = False,
-                )
+            #Preventing paramiko to refuse connections due to missing SSH keys
+            conn_params.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            conn_params.connect(
+                hostname = hostname,
+                port = 22,
+                username = "admin",
+                password = "admin",
+                look_for_keys = False,
+                allow_agent = False,
+            )
 
-                #Get an interactive shell and wait a bit for the prompt to appear
-                conn = conn_params.invoke_shell()
-                time.sleep(1.0)
+            #Get an interactive shell and wait a bit for the prompt to appear
+            conn = conn_params.invoke_shell()
+            time.sleep(1.0)
 
-                st.write(f"Logged into {get_output(conn).strip()} sucessfully") #Original line is print(f"Logged into {get_output(conn).strip()} sucessfully")
+            st.write(f"Logged into {get_output(conn).strip()} sucessfully") #Original line is print(f"Logged into {get_output(conn).strip()} sucessfully")
 
-                commands = [
-                    cmd,
-                ]
-                #Loop through command list to collect from devices
-                for command in commands:
-                    with st.spinner(text=f"Collecting {command} from {hostname}"):
-                        #Send the command upon established connection
-                        send_cmd(conn,command)
-                        #Capture function return value - command output
-                        return_check = get_output(conn)
-                        #Load the collected command output into the front end
-                        with st.expander("Collected Data"):
-                            st.code(return_check)
-                            #print(get_output(conn)) - This was an original command of the former script
+            commands = [
+                cmd,
+            ]
+            #Loop through command list to collect from devices
+            for command in commands:
+                with st.spinner(text=f"Collecting {command} from {hostname}"):
+                    #Send the command upon established connection
+                    send_cmd(conn,command)
+                    #Capture function return value - command output
+                    return_check = get_output(conn)
+                    #Load the collected command output into the front end
+                    with st.expander("Collected Data"):
+                        st.code(return_check)
+                        #print(get_output(conn)) - This was an original command of the former script
 
                 #Close session when done
                 conn.close()
