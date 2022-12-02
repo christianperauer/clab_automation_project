@@ -1,0 +1,24 @@
+{
+    "_default": {
+        "1": {
+            "name": "CSR Lab",
+            "shortname": "csr",
+            "author": "Terry",
+            "git": "False",
+            "localLabFolder": "csr-lab",
+            "labFile": "csr-lab.clab.yml",
+            "gitRepo": "",
+            "description": "CSR test lab"
+        },
+        "2": {
+            "name": "Arista Lab",
+            "shortname": "arista",
+            "author": "Terry",
+            "git": "True",
+            "localLabFolder": "arista-lab",
+            "labFile": "arista-lab.clab.yml",
+            "gitRepo": "https://github.com/terryfera/routing-lab.git",
+            "description": "Arista test lab"
+        }
+    }
+}
