@@ -4,25 +4,10 @@ import json
 from tinydb import TinyDB, Query
 import config
 from pathlib import Path
-import time
-import paramiko
-from paramiko import SSHClient
 
 db = TinyDB("labs.json")
 Labs = Query()
 
-def send_cmd(conn, command):
-    """
-    Given an open connection and a command, issue the command and wait one second for the command to be processed
-    """
-    conn.send(command + "\n")
-    time.sleep(1.0)
-
-def get_output(conn):
-    """
-    Given an open connection, read all the data from the buffer and decode the byte string as UTF-8
-    """
-    return conn.recv(65535).decode()
 
 def get_db_labs():
     all_labs = db.all()
@@ -33,9 +18,8 @@ def get_db_labs():
 
     return lab_list
 
-def db_add_lab():
-
-    return
+def db_add_lab(lab_details):
+    return db.insert(lab_details)
 
 def db_update_lab():
 
@@ -47,6 +31,9 @@ def db_del_lab():
 
 def search_lab_details(lab_name):
     return db.search(Labs.name == lab_name)
+
+def all_lab_details():
+    return db.all()
 
 def clab_function(lab_function, lab_option):
     lab_details = db.search(Labs.name == lab_option)[0]
@@ -85,3 +72,30 @@ def running_lab_status(status):
         status_markdown = f"""<span style="color:red">{status}</span>"""
     
     return status_markdown
+
+
+def connect_to_device(dev_option):
+
+    hostname = dev_option
+    port = 22
+    user = 'arista'
+    passwd = 'arista'
+
+    try:
+        client = SSHClient()
+        client.load_system_host_keys()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        client.connect(hostname, port=port, username=user, password=passwd)
+        while True:
+            try:
+                cmd = input(f'{hostname} - $> ')
+                if cmd == 'exit':
+                    break
+                stdin, stdout, stderr = client.exec_command(cmd)
+                return st.code(stdout)
+                print(stdout.read().decode())
+            except KeyboardInterrupt:
+                break
+        client.close()
+    except Exception as err:
+        print(std(err))
