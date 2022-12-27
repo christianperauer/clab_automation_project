@@ -19,6 +19,126 @@
             "labFile": "arista-lab.clab.yml",
             "gitRepo": "https://github.com/terryfera/routing-lab.git",
             "description": "Arista test lab"
+        },
+        "3": {
+            "name": "Terry Test Lab",
+            "shortname": "terry test lab",
+            "author": "Terry",
+            "git": false,
+            "localLabFolder": "terry-test-lab",
+            "labFile": "terry-test-lab.clab.yml",
+            "gitRepo": "",
+            "description": "test lab"
+        },
+        "4": {
+            "name": "Test lab 2",
+            "shortname": "testlab2",
+            "author": "Terry",
+            "git": "False",
+            "localLabFolder": "testlab2",
+            "labFile": "testlab2.clab.yml",
+            "gitRepo": "",
+            "description": "test lab 2"
+        },
+        "5": {
+            "name": "Test lab 2",
+            "shortname": "testlab2",
+            "author": "Terry",
+            "git": "False",
+            "localLabFolder": "testlab2",
+            "labFile": "testlab2.clab.yml",
+            "gitRepo": "",
+            "description": "test lab 2"
+        },
+        "6": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
+        },
+        "7": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
+        },
+        "8": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
+        },
+        "9": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
+        },
+        "10": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
+        },
+        "11": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
+        },
+        "12": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
+        },
+        "13": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
+        },
+        "14": {
+            "name": "asdf",
+            "shortname": "asdf",
+            "author": "asdf",
+            "git": false,
+            "localLabFolder": "asdf",
+            "labFile": "asdf",
+            "gitRepo": "",
+            "description": "asdf"
         }
     }
 }
