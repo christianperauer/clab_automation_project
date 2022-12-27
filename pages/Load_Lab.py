@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit as st
 import utils
 import json
 import config
@@ -7,25 +6,6 @@ from git import Repo
 import os
 from pathlib import Path
 from tinydb import TinyDB, Query
-
-def lab_clone():
-    labs_parent_dir = config.appRoot + config.labRoot
-    repo_dir = ''
-    repo_path = Path(labs_parent_dir + repo_dir)
-    repo_git = Path(labs_parent_dir + repo_dir + ".git")
-    if repo_path.is_dir():
-        print("Warning Path already exists, checking for existing git repo")
-        if repo_git.is_file():
-            print("Git repo already in this directory, delete it before trying again")
-        else:
-            print(f"Cloning repo from {git_url}")
-            Repo.clone_from(git_url, labs_parent_dir + repo_dir)
-    else:
-        print(f"Making directory {repo_path}")
-        os.mkdir(labs_parent_dir + repo_dir)
-        print(f"Cloning repo from {git_url}")
-        Repo.clone_from(git_url, labs_parent_dir + repo_dir)
-
 
 def load_page():
     labs_list = utils.get_db_labs()
@@ -40,8 +20,8 @@ def load_page():
                 lab_check = utils.clab_function("inspect", option)
             if lab_check is None:
                 st.write("Lab does not exist, you shouldn't see this")
-            elif lab_check is str:
-                st.write("Returned message:")
+            elif type(lab_check) is str:
+                st.warning("Lab doesn't exist, check that topology file exists:", icon="⚠️")
                 st.text(lab_check)
             elif lab_check.returncode == 0 and lab_check.stdout == '':
                 with st.spinner(text="Lab loading..."):
