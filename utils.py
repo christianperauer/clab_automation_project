@@ -99,3 +99,18 @@ def connect_to_device(dev_option):
         client.close()
     except Exception as err:
         print(std(err))
+
+
+def send_cmd(conn, command):
+    """
+    Given an open connection and a command, issue the command and wait one second for the command to be processed
+    """
+    conn.send(command + "\n")
+    time.sleep(1.0)
+
+
+def get_output(conn):
+    """
+    Given an open connection, read all the data from the buffer and decode the byte string as UTF-8
+    """
+    return conn.recv(65535).decode()
