@@ -4,6 +4,7 @@ import subprocess
 import json
 from tinydb import TinyDB, Query
 import config
+import os
 from pathlib import Path
 
 db = TinyDB("labs.json")
@@ -29,6 +30,24 @@ def db_update_lab():
 def db_del_lab():
 
     return
+
+def upload_lab():
+    lab_file = st.file_uploader("Upload Lab File", type=["yml"])
+    if lab_file is not None:
+        #st.write(type(lab_file))
+        #lab_file_details = {"filename":lab_file.name, "filetype":lab_file.type,
+        #"filesize":lab_file.size}
+        if st.button("Upload"):
+            #st.write(lab_file_details)
+            #Read as Bytes
+            #raw_data = lab_file.read()
+            #Read as text
+            raw_data = str(lab_file.read(), "utf-8")
+            #st.write(raw_data)
+            with open(os.path.join("/home/cperauer/clab-topologies", lab_file.name),"wb") as f:
+                f.write(lab_file.getbuffer())
+            
+            st.success("Lab File Successfully Uploaded")
 
 def search_lab_details(lab_name):
     return db.search(Labs.name == lab_name)

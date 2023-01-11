@@ -31,7 +31,7 @@ def lab_clone():
 
 
 def load_page():
-    installed_labs, add_lab, update_lab, delete_lab = st.tabs(['Installed Labs', 'Add Lab', 'Update Lab', 'Delete Lab'])
+    installed_labs, add_lab, update_lab, delete_lab, upload_lab = st.tabs(['Installed Labs', 'Add Lab', 'Update Lab', 'Delete Lab', 'Upload Lab File'])
 
     with installed_labs:
         st.header('Installed Labs')
@@ -113,6 +113,10 @@ def load_page():
 
     with delete_lab:
         st.write('Delete Lab')
+
+    with upload_lab:
+        st.header('Upload Lab File')
+        utils.upload_lab()
 
 if __name__ == "__main__":
     load_page()
