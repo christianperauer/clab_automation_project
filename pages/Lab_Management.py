@@ -113,6 +113,12 @@ def load_page():
 
     with delete_lab:
         st.write('Delete Lab')
+        del_option = st.selectbox(
+            'Select installed lab to remove',
+            utils.get_db_labs()
+        )        
+        if st.button('Remove Lab'):
+            utils.db_del_lab(del_option)
 
     with upload_lab:
         st.header('Upload Lab File')

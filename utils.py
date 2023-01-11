@@ -27,9 +27,8 @@ def db_update_lab():
 
     return
 
-def db_del_lab():
-
-    return
+def db_del_lab(lab_name):
+    return db.remove(Labs.name == lab_name)
 
 def upload_lab():
     lab_file = st.file_uploader("Upload Lab File", type=["yml"])
