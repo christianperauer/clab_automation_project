@@ -31,7 +31,7 @@ def lab_clone():
 
 
 def load_page():
-    installed_labs, add_lab, update_lab, delete_lab, upload_lab = st.tabs(['Installed Labs', 'Add Lab', 'Update Lab', 'Delete Lab', 'Upload Lab File'])
+    installed_labs, add_lab, update_lab, delete_lab = st.tabs(['Installed Labs', 'Add Lab', 'Update Lab', 'Delete Lab'])
 
     with installed_labs:
         st.header('Installed Labs')
@@ -83,8 +83,8 @@ def load_page():
             if git_enabled:
                 git_url = st.text_input('Git URL')
             local_folder = st.text_input('Local Folder')
-            lab_file = st.text_input('Lab File Name')
-            
+            lab_file_name = st.text_input('Lab File Name')
+            lab_file = st.file_uploader("Upload Lab File", type=["yml"])
 
             lab_details_json = {
                 "name": lab_name,
@@ -92,17 +92,20 @@ def load_page():
                 "author": author,
                 "git": git_enabled,
                 "localLabFolder": local_folder,
-                "labFile": lab_file,
+                "labFile": lab_file_name,
                 "gitRepo": git_url,
                 "description": description
             }
 
             submitted = st.form_submit_button("Submit")
 
-            if submitted:
+            if submitted and lab_file is not None:
                 add_result = utils.db_add_lab(lab_details_json)
+                with open(os.path.join("/home/cperauer/clab-topologies", lab_file.name),"wb") as f:
+                    f.write(lab_file.getbuffer())
                 if type(add_result) is int:
                     st.success('Lab Added Successfully', icon="✅")
+                    st.success('Lab File Successfully Uploaded', icon="✅")
                 elif type(add_result) is Exception:
                     st.error('Lab load failed', icon="🚨")
                 else:
@@ -119,10 +122,6 @@ def load_page():
         )        
         if st.button('Remove Lab'):
             utils.db_del_lab(del_option)
-
-    with upload_lab:
-        st.header('Upload Lab File')
-        utils.upload_lab()
 
 if __name__ == "__main__":
     load_page()

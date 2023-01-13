@@ -1,1 +1,24 @@
-{"_default": {"2": {"name": "Arista Lab", "shortname": "arista", "author": "Terry", "git": "True", "localLabFolder": "arista-lab", "labFile": "arista-lab.clab.yml", "gitRepo": "https://github.com/terryfera/routing-lab.git", "description": "Arista test lab"}, "15": {"name": "Arista Lab Upload Test", "shortname": "arista lab upload test", "author": "CDP", "git": false, "localLabFolder": "/home/cperauer/clab-topologies/clab_automation_project", "labFile": "arista-upload-test.yml", "gitRepo": "", "description": "Testing YML file upload"}}}
+{
+    "_default": {
+        "15": {
+            "author": "CDP",
+            "description": "Testing YML file upload",
+            "git": false,
+            "gitRepo": "",
+            "labFile": "arista-upload-test.yml",
+            "localLabFolder": "/home/cperauer/clab-topologies/clab_automation_project",
+            "name": "Arista Lab Upload Test",
+            "shortname": "arista lab upload test"
+        },
+        "16": {
+            "author": "CDP",
+            "description": "Upload Test with DB Formatting 1",
+            "git": false,
+            "gitRepo": "",
+            "labFile": "arista-upload-test.yml",
+            "localLabFolder": "/home/cperauer/clab-topologies",
+            "name": "Upload Test with DB Formatting 1",
+            "shortname": "upload test with db formatting 1"
+        }
+    }
+}
