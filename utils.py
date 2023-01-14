@@ -41,6 +41,11 @@ def upload_lab():
             
             st.success("Lab File Successfully Uploaded")
 
+def lab_file_search(lab_name):
+    labdb_entry_dir = db.search(Labs.name == lab_name)[0].get("localLabFolder")
+    labdb_entry_file = db.search(Labs.name == lab_name)[0].get("labFile")
+    return labdb_entry_dir + "/" + labdb_entry_file
+    
 def search_lab_details(lab_name):
     return db.search(Labs.name == lab_name)
 

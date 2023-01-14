@@ -119,9 +119,17 @@ def load_page():
         del_option = st.selectbox(
             'Select installed lab to remove',
             utils.get_db_labs()
-        )        
+        )
         if st.button('Remove Lab'):
-            utils.db_del_lab(del_option)
+            clean_lab_file = utils.lab_file_search(del_option)
+            if clean_lab_file is not None:
+                os.remove(clean_lab_file)
+                utils.db_del_lab(del_option)
+                st.success('Lab File and DB Entry Successfully Removed', icon="✅")
+            elif clean_lab_file is None:
+                st.error('Lab Removal failed', icon="🚨")
+            else:
+                st.error(f'Unexpected result... result was: {clean_lab_file}')
 
 if __name__ == "__main__":
     load_page()

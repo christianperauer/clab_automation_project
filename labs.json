@@ -9,16 +9,6 @@
             "localLabFolder": "/home/cperauer/clab-topologies/clab_automation_project",
             "name": "Arista Lab Upload Test",
             "shortname": "arista lab upload test"
-        },
-        "16": {
-            "author": "CDP",
-            "description": "Upload Test with DB Formatting 1",
-            "git": false,
-            "gitRepo": "",
-            "labFile": "arista-upload-test.yml",
-            "localLabFolder": "/home/cperauer/clab-topologies",
-            "name": "Upload Test with DB Formatting 1",
-            "shortname": "upload test with db formatting 1"
         }
     }
 }
