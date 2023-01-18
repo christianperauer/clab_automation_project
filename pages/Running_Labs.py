@@ -15,45 +15,88 @@ def load_page():
         running_labs = utils.get_running_labs()
         lab_list = []
 
-        for lab in running_labs['containers']:
-            if lab['lab_name'] not in lab_list:
-                lab_list.append(lab['lab_name'])
-
-        st.subheader("Currently Running Labs")
+        if running_labs is None:
+            st.error('There are no Labs running', icon="⚠️")
         
-        for lab_name in lab_list:
-            #st.write(lab_name)
-            with st.container():
-                lab_desc = f"""
-                #### Lab Name: {lab_name}
-                #### Lab File: 
-                """
-                st.markdown(lab_desc)
-                button_name = f"List {lab_name} Containers"
-                if st.button(button_name):
-                    expander_name = f"{lab_name} Containers"
-                    with st.expander(expander_name):
-                        for container in running_labs['containers']:
-                            if container['lab_name'] == lab_name:
-                                #st.write(container)
-                                container_table = f"""
-                                |  |  |
-                                | --- |--- |
-                                | **Name** | {container['name']} |
-                                | **Container ID** | {container['container_id']} |
-                                | **Image** | {container['image']} |
-                                | **Kind** | {container['kind']} |
-                                | **State** | {utils.running_lab_status(container['state'])} |
-                                | **IPv4 Address** | {container['ipv4_address']} |
-                                | **IPv6 Address** | {container['ipv6_address']} |
-                                """
-                                st.markdown(utils.format_md_table(), unsafe_allow_html=True)
-                                st.markdown(container_table, unsafe_allow_html=True)
-                st.write("---")
+        elif running_labs is not None:
+
+            for lab in running_labs['containers']:
+                if lab['lab_name'] not in lab_list:
+                    lab_list.append(lab['lab_name'])
+
+            st.subheader("Currently Running Labs")
+            
+            for lab_name in lab_list:
+                #st.write(lab_name)
+                with st.container():
+                    lab_desc = f"""
+                    #### Lab Name: {lab_name}
+                    #### Lab File: 
+                    """
+                    st.markdown(lab_desc)
+                    button_name = f"List {lab_name} Containers"
+                    if st.button(button_name):
+                        expander_name = f"{lab_name} Containers"
+                        with st.expander(expander_name):
+                            for container in running_labs['containers']:
+                                if container['lab_name'] == lab_name:
+                                    #st.write(container)
+                                    container_table = f"""
+                                    |  |  |
+                                    | --- |--- |
+                                    | **Name** | {container['name']} |
+                                    | **Container ID** | {container['container_id']} |
+                                    | **Image** | {container['image']} |
+                                    | **Kind** | {container['kind']} |
+                                    | **State** | {utils.running_lab_status(container['state'])} |
+                                    | **IPv4 Address** | {container['ipv4_address']} |
+                                    | **IPv6 Address** | {container['ipv6_address']} |
+                                    """
+                                    st.markdown(utils.format_md_table(), unsafe_allow_html=True)
+                                    st.markdown(container_table, unsafe_allow_html=True)
+                    #st.checkbox(f'Destroy {lab_name}')
+                    st.write("---")
         
     else:
         st.write('Please refresh labs')
 
+    with st.form("Destroy Lab"):
+
+        run_labs_list = []
+        if running_labs is None:
+            st.error('There are no Labs running', icon="⚠️")
+        elif running_labs is not None:
+            for lab in running_labs['containers']:
+                if lab['labPath'] not in run_labs_list:
+                    run_labs_list.append(lab['labPath'][3:])
+        #st.write(run_labs_list)
+
+        dest_all_labs = db.all()
+        dest_lab_list = []
+        for lab in dest_all_labs:
+            if lab['labFile'] not in dest_lab_list:
+                dest_lab_list.append(lab['labFile'])
+        #st.write(dest_lab_list)
+
+        dest_final_list = []
+        for file in dest_lab_list:
+            if file in run_labs_list:
+                dest_final_list.append(file)
+        #st.write(dest_final_list)
+
+        #test_snip = db.search(Labs.labFile == 'arista-upload-test.yml')[0]
+        #st.write(test_snip)
+
+        st.write("Select Lab to Destroy")
+        option = st.selectbox(
+            'Select a lab:', dest_final_list # dest_final_list
+        )
+        lab_shutdown = st.form_submit_button("Destroy")
+        if lab_shutdown:
+            with st.spinner(text="Destroy Running Lab... Please wait"):
+                #st.write(option)
+                lab_destroy = utils.clab_function_des(option)
+                st.success("Complete")
 
 if __name__ == "__main__":
     load_page()

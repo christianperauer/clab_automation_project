@@ -55,17 +55,30 @@ def all_lab_details():
 def clab_function(lab_function, lab_option):
     lab_details = db.search(Labs.name == lab_option)[0]
     labs_parent_dir = config.appRoot + config.labRoot
-    lab_full_path = f"{labs_parent_dir}/{lab_details['localLabFolder']}/{lab_details['labFile']}"
+    # lab_full_path = f"{labs_parent_dir}/{lab_details['localLabFolder']}/{lab_details['labFile']}"
+    lab_full_path = f"{lab_details['localLabFolder']}/{lab_details['labFile']}"
     lab_path_check = Path(lab_full_path)
     if lab_path_check.is_file():
         return subprocess.run(['sudo', 'containerlab', lab_function, '-t', lab_full_path], text=True, check=True, capture_output=True)
     else:
         return lab_full_path
 
+def clab_function_des(lab_option):
+    lab_details_new = db.search(Labs.labFile == lab_option)[0]
+    lab_full_path = f"{lab_details_new['localLabFolder']}/{lab_details_new['labFile']}"
+    lab_path_check = Path(lab_full_path)
+    if lab_path_check.is_file():
+        return subprocess.run(['sudo', 'containerlab', 'destroy', '-t', lab_full_path], text=True, check=True, capture_output=True)
+    else:
+        return lab_full_path
+
 def get_running_labs():
     output = subprocess.run(['sudo', 'containerlab', 'inspect', '--all', '-f', 'json'], text=True, check=True, capture_output=True)
-    running_labs = json.loads(output.stdout)
-    return running_labs
+    if output.stdout == "":
+        return None
+    elif output.stdout != "":
+        running_labs = json.loads(output.stdout)
+        return running_labs 
 
 def format_md_table():
     table_style = """

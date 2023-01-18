@@ -1,14 +1,24 @@
 {
     "_default": {
-        "15": {
+        "1": {
             "author": "CDP",
-            "description": "Testing YML file upload",
+            "description": "First test of fully functionality, from upload to execution",
             "git": false,
             "gitRepo": "",
             "labFile": "arista-upload-test.yml",
-            "localLabFolder": "/home/cperauer/clab-topologies/clab_automation_project",
-            "name": "Arista Lab Upload Test",
-            "shortname": "arista lab upload test"
+            "localLabFolder": "/home/cperauer/clab-topologies",
+            "name": "Arista Upload First Full Test",
+            "shortname": "arista upload first full test"
+        },
+        "2": {
+            "author": "CDP",
+            "description": "First test of fully functionality, multi lab  from upload to execution",
+            "git": false,
+            "gitRepo": "",
+            "labFile": "arista-upload-test 2.yml",
+            "localLabFolder": "/home/cperauer/clab-topologies",
+            "name": "Arista Upload First Full Test 2",
+            "shortname": "arista upload first full test 2"
         }
     }
 }
