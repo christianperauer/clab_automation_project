@@ -85,6 +85,9 @@ def load_page():
             local_folder = st.text_input('Local Folder')
             lab_file_name = st.text_input('Lab File Name')
             lab_file = st.file_uploader("Upload Lab File", type=["yml"])
+            #lab_file_in_dir = ''
+            #file_path = utils.lab_file_search(option)
+            #is_file_path = os.path.exists(file_path)
 
             lab_details_json = {
                 "name": lab_name,
@@ -99,7 +102,9 @@ def load_page():
 
             submitted = st.form_submit_button("Submit")
 
-            if submitted and lab_file is not None:
+            if submitted and lab_file is None:
+                st.error('A Lab File is required', icon="⚠️")
+            elif submitted and lab_file is not None:
                 add_result = utils.db_add_lab(lab_details_json)
                 with open(os.path.join("/home/cperauer/clab-topologies", lab_file.name),"wb") as f:
                     f.write(lab_file.getbuffer())
@@ -112,10 +117,13 @@ def load_page():
                     st.error(f'Did not expect that... result was: {add_result}')
 
     with update_lab:
-        st.write('Update Lab')
+        st.title('Update Lab')
+
+        #chec_for_lab_file = st.checkbox('Update Lab File in Dir')
 
     with delete_lab:
-        st.write('Delete Lab')
+        st.title('Delete Lab')
+        st.subheader(':red[Only Labs with DB entry and Lab file present can be deleted]')
         del_option = st.selectbox(
             'Select installed lab to remove',
             utils.get_db_labs()
