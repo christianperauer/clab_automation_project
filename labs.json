@@ -12,13 +12,13 @@
         },
         "2": {
             "author": "CDP",
-            "description": "First test of fully functionality, multi lab  from upload to execution",
+            "description": "Testing for lab create, file upload and check for lab directory",
             "git": false,
             "gitRepo": "",
-            "labFile": "arista-upload-test 2.yml",
-            "localLabFolder": "/home/cperauer/clab-topologies",
-            "name": "Arista Upload First Full Test 2",
-            "shortname": "arista upload first full test 2"
+            "labFile": "arista-2device-lab.yml",
+            "localLabFolder": "arista-2-device-test-lab",
+            "name": "Arista 2 Device Test Lab 1",
+            "shortname": "arista 2 device test lab 1"
         }
     }
 }

@@ -42,9 +42,10 @@ def upload_lab():
             st.success("Lab File Successfully Uploaded")
 
 def lab_file_search(lab_name):
+    labs_parent_dir = config.appRoot + config.labRoot
     labdb_entry_dir = db.search(Labs.name == lab_name)[0].get("localLabFolder")
     labdb_entry_file = db.search(Labs.name == lab_name)[0].get("labFile")
-    return labdb_entry_dir + "/" + labdb_entry_file
+    return labs_parent_dir + "/" + labdb_entry_file
     
 def search_lab_details(lab_name):
     return db.search(Labs.name == lab_name)
@@ -52,11 +53,22 @@ def search_lab_details(lab_name):
 def all_lab_details():
     return db.all()
 
+def check_lab_path(lab_path):
+    '''    Check if the path entered in the lab details is valid    
+    Pulls the appRoot and labRoot folders from the users config file
+    Return True if valid, False if not valid    '''
+    labs_parent_dir = config.appRoot + config.labRoot
+    lab_full_path = f"{labs_parent_dir}/{lab_path}/"
+    lab_path_check = Path(lab_full_path)
+    if lab_path_check.is_dir():
+        return True
+    else:
+        return False
+
 def clab_function(lab_function, lab_option):
     lab_details = db.search(Labs.name == lab_option)[0]
     labs_parent_dir = config.appRoot + config.labRoot
-    # lab_full_path = f"{labs_parent_dir}/{lab_details['localLabFolder']}/{lab_details['labFile']}"
-    lab_full_path = f"{lab_details['localLabFolder']}/{lab_details['labFile']}"
+    lab_full_path = f"{labs_parent_dir}/{lab_details['localLabFolder']}/{lab_details['labFile']}"
     lab_path_check = Path(lab_full_path)
     if lab_path_check.is_file():
         return subprocess.run(['sudo', 'containerlab', lab_function, '-t', lab_full_path], text=True, check=True, capture_output=True)
@@ -64,8 +76,9 @@ def clab_function(lab_function, lab_option):
         return lab_full_path
 
 def clab_function_des(lab_option):
+    labs_parent_dir = config.appRoot + config.labRoot
     lab_details_new = db.search(Labs.labFile == lab_option)[0]
-    lab_full_path = f"{lab_details_new['localLabFolder']}/{lab_details_new['labFile']}"
+    lab_full_path = f"{labs_parent_dir}/{lab_details_new['localLabFolder']}/{lab_option}"
     lab_path_check = Path(lab_full_path)
     if lab_path_check.is_file():
         return subprocess.run(['sudo', 'containerlab', 'destroy', '-t', lab_full_path], text=True, check=True, capture_output=True)

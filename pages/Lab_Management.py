@@ -29,8 +29,8 @@ def lab_clone():
         print(f"Cloning repo from {git_url}")
         Repo.clone_from(git_url, labs_parent_dir + repo_dir)
 
-
 def load_page():
+    labs_parent_dir = config.appRoot + config.labRoot
     installed_labs, add_lab, update_lab, delete_lab = st.tabs(['Installed Labs', 'Add Lab', 'Update Lab', 'Delete Lab'])
 
     with installed_labs:
@@ -68,7 +68,6 @@ def load_page():
                     st.markdown(lab_table)
                     st.write("---")
 
-
     with add_lab:
         st.header('Add Lab')
 
@@ -82,12 +81,10 @@ def load_page():
             git_url = ''
             if git_enabled:
                 git_url = st.text_input('Git URL')
+            
             local_folder = st.text_input('Local Folder')
             lab_file_name = st.text_input('Lab File Name')
             lab_file = st.file_uploader("Upload Lab File", type=["yml"])
-            #lab_file_in_dir = ''
-            #file_path = utils.lab_file_search(option)
-            #is_file_path = os.path.exists(file_path)
 
             lab_details_json = {
                 "name": lab_name,
@@ -105,21 +102,31 @@ def load_page():
             if submitted and lab_file is None:
                 st.error('A Lab File is required', icon="⚠️")
             elif submitted and lab_file is not None:
-                add_result = utils.db_add_lab(lab_details_json)
-                with open(os.path.join("/home/cperauer/clab-topologies", lab_file.name),"wb") as f:
-                    f.write(lab_file.getbuffer())
-                if type(add_result) is int:
-                    st.success('Lab Added Successfully', icon="✅")
-                    st.success('Lab File Successfully Uploaded', icon="✅")
-                elif type(add_result) is Exception:
-                    st.error('Lab load failed', icon="🚨")
+                ''' 
+                Checking for lab existance 
+                '''
+                val_lab_path = f'{local_folder}/{lab_file.name}'
+                if utils.check_lab_path(val_lab_path) == True:
+                    st.success('Lab directory already Exists', icon="⚠️")
                 else:
-                    st.error(f'Did not expect that... result was: {add_result}')
+                    with st.spinner(text="Generating Lab Directory... Please wait"):
+                        new_path = f'{labs_parent_dir}/{local_folder}'
+                        os.mkdir(new_path)
+                        st.success('Lab Directory Successfully Created', icon="✅")
+
+                        add_result = utils.db_add_lab(lab_details_json)
+                        with open(os.path.join(new_path, lab_file.name),"wb") as f:
+                            f.write(lab_file.getbuffer())
+                        if type(add_result) is int:
+                            st.success('Lab Added Successfully', icon="✅")
+                            st.success('Lab File Successfully Uploaded', icon="✅")
+                        elif type(add_result) is Exception:
+                            st.error('Lab load failed', icon="🚨")
+                        else:
+                            st.error(f'Did not expect that... result was: {add_result}')
 
     with update_lab:
         st.title('Update Lab')
-
-        #chec_for_lab_file = st.checkbox('Update Lab File in Dir')
 
     with delete_lab:
         st.title('Delete Lab')
