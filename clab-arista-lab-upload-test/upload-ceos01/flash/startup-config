@@ -1,0 +1,37 @@
+! Startup-config last modified at Tue Jan 24 23:41:00 2023 by root
+! device: upload-ceos01 (cEOSLab, EOS-4.28.0F-26924507.4280F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$msOJ43uiL7HgHsWY$2RSO/Zcapyyustx2eH/Y7aHrxWoVNMLNnWfjF1QQmMYk3KMdizifb8PEOAY4n1Ji.PwA0ukzFveMUtnUhFvqo0
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname upload-ceos01
+!
+spanning-tree mode mstp
+!
+management api http-commands
+   no shutdown
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+interface Ethernet1
+!
+interface Management0
+   ip address 172.20.20.2/24
+   ipv6 address 2001:172:20:20::2/64
+!
+no ip routing
+!
+ip route 0.0.0.0/0 172.20.20.1
+!
+ipv6 route ::/0 2001:172:20:20::1
+!
+end

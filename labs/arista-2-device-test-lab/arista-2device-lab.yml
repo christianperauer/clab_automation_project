@@ -1,0 +1,12 @@
+name: arista-lab-upload-test
+
+topology:
+  nodes:
+    upload-ceos01:
+      kind: ceos
+      image: h4ndzdatm0ld/ceosimage:4.28.0F
+    upload-ceos02:
+      kind: ceos
+      image: h4ndzdatm0ld/ceosimage:4.28.0F
+  links:
+    - endpoints: ["upload-ceos01:eth1", "upload-ceos02:eth1"]
