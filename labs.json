@@ -2,16 +2,6 @@
     "_default": {
         "1": {
             "author": "CDP",
-            "description": "First test of fully functionality, from upload to execution",
-            "git": false,
-            "gitRepo": "",
-            "labFile": "arista-upload-test.yml",
-            "localLabFolder": "/home/cperauer/clab-topologies",
-            "name": "Arista Upload First Full Test",
-            "shortname": "arista upload first full test"
-        },
-        "2": {
-            "author": "CDP",
             "description": "Testing for lab create, file upload and check for lab directory",
             "git": false,
             "gitRepo": "",
