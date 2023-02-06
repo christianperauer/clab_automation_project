@@ -87,9 +87,10 @@ def lab_clone():
             print(repo_git)
         else:
             print(f"Cloning repo from {git_url}")
-            # Repo.clone_from(git_url, labs_parent_dir + repo_dir)
-            print(repo_git)
-            print(repo_path)
+            Repo.clone_from(git_url, labs_parent_dir + repo_dir)
+            # print(repo_git)
+            # print(repo_path)
+            # print(labs_parent_dir)
     else:
         print(f"Making directory {repo_path}")
         # os.mkdir(labs_parent_dir + repo_dir)
