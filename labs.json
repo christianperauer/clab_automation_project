@@ -9,6 +9,16 @@
             "localLabFolder": "arista-2-device-test-lab",
             "name": "Arista 2 Device Test Lab 1",
             "shortname": "arista 2 device test lab 1"
+        },
+        "2": {
+            "author": "CDP",
+            "description": "Arista EVPN Lab",
+            "git": false,
+            "gitRepo": "",
+            "labFile": "ceos-evpn-overlaid.clab.yml",
+            "localLabFolder": "routing-lab",
+            "name": "Arista EVPN Fabric",
+            "shortname": "arista evpn fabric"
         }
     }
 }
