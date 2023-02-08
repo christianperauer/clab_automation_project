@@ -5,7 +5,10 @@ from tinydb import TinyDB, Query
 
 def load_homepage():
     st.markdown("""
-        # WELCOME TO LAB GENERATOR
+        # NETWORK LAB GENERATOR
+
+        ---
+
         The very fisrt dynamic Lab generator\n
         The tool provides 2 options:
         * Spin up pre-defined labs
@@ -14,6 +17,10 @@ def load_homepage():
         * Cisco (IOS-XE and IOS-XR)
         * Arista cEOS
         * Nokia SRL
+        ---
+        
+        ##### By ***Terry Fera*** and ***Christian Perauer***
+
         """)
 
 

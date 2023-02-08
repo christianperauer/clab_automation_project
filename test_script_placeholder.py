@@ -110,7 +110,7 @@ Labs = Query()
 
 
 
-def test_topo_map(lab_option):
+# def test_topo_map(lab_option):
     # labs_list = utils.get_db_labs()
     # print("")
     # lab_option = input("Enter Lab Option: ")
@@ -165,20 +165,20 @@ def test_topo_map(lab_option):
 ### LATEST TESTING ON CLAB GRAPH
 
 
-    labs_parent_dir = config.appRoot + config.labRoot
-    lab_details_new = db.search(Labs.labFile == lab_option)[0]
-    lab_full_path = f"{labs_parent_dir}/{lab_details_new['localLabFolder']}/{lab_option}"
-    lab_path_check = Path(lab_full_path)
-    if lab_path_check.is_file():
-        test_output = subprocess.Popen(['sudo', 'containerlab', 'graph', '-t', lab_full_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = test_output.communicate()
-        if test_output.returncode == 0:
-            print(f'stdout: {stdout.decode()}')
-        else:
-            print(f'stderr: {stderr.decode()}')
-            print('50080: bind: address already in use' in stderr.decode())
-    else:
-        print(lab_full_path)
+    # labs_parent_dir = config.appRoot + config.labRoot
+    # lab_details_new = db.search(Labs.labFile == lab_option)[0]
+    # lab_full_path = f"{labs_parent_dir}/{lab_details_new['localLabFolder']}/{lab_option}"
+    # lab_path_check = Path(lab_full_path)
+    # if lab_path_check.is_file():
+    #     test_output = subprocess.Popen(['sudo', 'containerlab', 'graph', '-t', lab_full_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #     stdout, stderr = test_output.communicate()
+    #     if test_output.returncode == 0:
+    #         print(f'stdout: {stdout.decode()}')
+    #     else:
+    #         print(f'stderr: {stderr.decode()}')
+    #         print('50080: bind: address already in use' in stderr.decode())
+    # else:
+    #     print(lab_full_path)
 
     # host = '10.10.0.12'
     # port = 50080
@@ -201,15 +201,18 @@ def test_topo_map(lab_option):
     # s.close()
 
 
-if __name__ == "__main__":
-    test_topo_map('ceos-evpn-overlaid.clab.yml')
-    # test_topo_map()
+# if __name__ == "__main__":
+#     test_topo_map('ceos-evpn-overlaid.clab.yml')
+#     # test_topo_map()
 
+def test_fun():
+    result = subprocess.run(["sudo", "lsof", "-ti", "tcp:50080"], stdout=subprocess.PIPE)
+    pid = result.stdout.strip()
+    return pid
+    print(pid)
+    print(type(pid))
 
-
-
-
-
+test_fun()
 
 
 # if __name__ == "__main__":

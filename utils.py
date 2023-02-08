@@ -91,9 +91,19 @@ def clab_function_map(lab_option):
     lab_full_path = f"{labs_parent_dir}/{lab_details_new['localLabFolder']}/{lab_option}"
     lab_path_check = Path(lab_full_path)
     if lab_path_check.is_file():
-        return subprocess.Popen(['sudo', 'containerlab', 'graph', '-t', lab_full_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # return subprocess.run(['sudo', 'containerlab', 'graph', '-t', lab_full_path], shell=True)
+        # subprocess.run(['sudo', 'containerlab', 'graph', '-t', lab_full_path], shell=True)
+        return 'sudo containerlab graph -t ' + lab_full_path
     else:
         return lab_full_path
+
+def clab_function_run_command(command):
+    subprocess.run(command, shell=True)
+
+def clab_function_kill_graph():
+    result = subprocess.run(["sudo", "lsof", "-ti", "tcp:50080"], stdout=subprocess.PIPE)
+    pid = result.stdout.strip()
+    return pid.decode()
 
 def get_running_labs():
     output = subprocess.run(['sudo', 'containerlab', 'inspect', '--all', '-f', 'json'], text=True, check=True, capture_output=True)

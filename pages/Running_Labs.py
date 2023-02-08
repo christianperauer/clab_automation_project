@@ -4,6 +4,8 @@ from tinydb import TinyDB, Query
 import re
 import os
 from selenium import webdriver
+import multiprocessing
+import subprocess
 
 
 db = TinyDB("labs.json")
@@ -135,23 +137,35 @@ def load_page():
         map_lab = st.form_submit_button("Map Topology")
         if map_lab:
             with st.spinner(text="Checking Topology Map... Please wait"):                
-                
-                lab_topo_map = utils.clab_function_map(option)
-                stdout, stderr = lab_topo_map.communicate()
-                if lab_topo_map.returncode == 0:
-                    st.write(f'stdout: {stdout.decode()}')
-                else:
-                    st.write(f'stderr: {stderr.decode()}')
-                    st.write('50080: bind: address already in use' in stderr.decode())
-                
-                st.success("Complete")
-                
+                target_command = utils.clab_function_map(option)
+                # st.write([(target_command)],)
 
-
+                lab_topo_map = multiprocessing.Process(target=utils.clab_function_run_command, args=([(target_command)],))
+                lab_topo_map.start()
+                
                 with st.expander("Lab Topology Map"):
-                    st.write(f'<iframe src="http://10.10.0.12:50080/"></iframe>',
-                    unsafe_allow_html=True,
-                    )
+
+                    link_text = "Lab " + option + " map"
+                    click_url = "http://10.10.0.12:50080/"
+                    markdown_link = "[{}]({})".format(link_text, click_url)
+                    st.markdown(markdown_link, unsafe_allow_html=True)
+                    st.success("Completed, if spinner does not stop, click Stop on the top right hand corner")
+
+                lab_topo_map.join()
+
+    st.write("---")
+
+    with st.form("Terminate Map Function Session"):
+        st.write("Terminate Map Function Sessions")
+        st.error('NOTE: This feature is a WIP - If button grayed out, click stop on the top right hand corner', icon="⚠️")
+
+        kill_topo_but = st.form_submit_button("Terminate Map Session")
+        if kill_topo_but:
+            map_pid = utils.clab_function_kill_graph()
+            # st.write(map_pid)
+            # st.write(type(map_pid))
+            subprocess.run(['sudo', 'kill', map_pid], check=True)
+            st.success("Completed")
 
     st.write("---")
 
