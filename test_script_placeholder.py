@@ -205,15 +205,34 @@ Labs = Query()
 #     test_topo_map('ceos-evpn-overlaid.clab.yml')
 #     # test_topo_map()
 
-def test_fun():
-    result = subprocess.run(["sudo", "lsof", "-ti", "tcp:50080"], stdout=subprocess.PIPE)
-    pid = result.stdout.strip()
-    return pid
-    print(pid)
-    print(type(pid))
+# def test_fun():
+#     result = subprocess.run(["sudo", "lsof", "-ti", "tcp:50080"], stdout=subprocess.PIPE)
+#     pid = result.stdout.strip()
+#     return pid
+#     print(pid)
+#     print(type(pid))
 
-test_fun()
+# test_fun()
 
 
-# if __name__ == "__main__":
-#     lab_clone()
+def clab_function(lab_option):
+    lab_details = db.search(Labs.name == lab_option)[0]
+    labs_parent_dir = config.appRoot + config.labRoot
+    lab_full_path = f"{labs_parent_dir}/{lab_details['localLabFolder']}/{lab_details['labFile']}"
+    lab_path_check = Path(lab_full_path)
+    if lab_path_check.is_file():
+        print('')
+        print(lab_details)
+        print('')
+        print(type(lab_details))
+        print('')
+        print(lab_details['labFile'])
+        print('')
+        # return subprocess.run(['sudo', 'containerlab', lab_function, '-t', lab_full_path], text=True, check=True, capture_output=True)
+    else:
+        print(lab_full_path)
+
+
+
+if __name__ == "__main__":
+    clab_function('Arista 2 Device Test Lab 1')

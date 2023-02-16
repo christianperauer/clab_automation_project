@@ -65,6 +65,44 @@ def load_page():
     else:
         st.write('Please refresh labs')
 
+    with st.form("Save Lab Configs"):
+            running_labs = utils.get_running_labs()
+            run_labs_list = []
+            if running_labs is None:
+                st.error('There are no Labs running', icon="⚠️")
+            elif running_labs is not None:
+                extrLabFromPath = re.compile(r'\S+\/\S+\/(\S+)')
+                for lab in running_labs['containers']:
+                    lab_match_ob = extrLabFromPath.search(lab['labPath'])
+                    if lab_match_ob.group(1) not in run_labs_list:
+                        run_labs_list.append(lab_match_ob.group(1))
+                        #st.write(run_labs_list)
+
+            dest_all_labs = db.all()
+            dest_lab_list = []
+            for lab in dest_all_labs:
+                if lab['labFile'] not in dest_lab_list:
+                    dest_lab_list.append(lab['labFile'])
+                    #st.write(dest_lab_list)
+
+            dest_final_list = []
+            for file in dest_lab_list:
+                if file in run_labs_list:
+                    dest_final_list.append(file)
+                    #st.write(dest_final_list)
+
+            st.write("Select Lab to Save Configs")
+            option = st.selectbox(
+                'Select a lab:', dest_final_list
+            )
+            lab_shutdown = st.form_submit_button("Save Run to Start")
+            if lab_shutdown:
+                with st.spinner(text="Saving Lab Configs... Please wait"):
+                    lab_save = utils.clab_function_save(option)
+                    st.success("Complete")
+
+    st.write("---")
+
     with st.form("Destroy Lab"):
         running_labs = utils.get_running_labs()
         run_labs_list = []

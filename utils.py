@@ -97,6 +97,16 @@ def clab_function_map(lab_option):
     else:
         return lab_full_path
 
+def clab_function_save(lab_option):
+    labs_parent_dir = config.appRoot + config.labRoot
+    lab_details_new = db.search(Labs.labFile == lab_option)[0]
+    lab_full_path = f"{labs_parent_dir}/{lab_details_new['localLabFolder']}/{lab_option}"
+    lab_path_check = Path(lab_full_path)
+    if lab_path_check.is_file():
+        return subprocess.run(['sudo', 'containerlab', 'save', '-t', lab_full_path], text=True, check=True, capture_output=True)
+    else:
+        return lab_full_path
+
 def clab_function_run_command(command):
     subprocess.run(command, shell=True)
 
