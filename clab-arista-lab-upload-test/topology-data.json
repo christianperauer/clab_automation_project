@@ -6,7 +6,7 @@
       "prefix": "clab",
       "mgmt": {
         "network": "clab",
-        "bridge": "br-fc336bc621db",
+        "bridge": "br-080a6b938ab7",
         "ipv4-subnet": "172.20.20.0/24",
         "ipv4-gw": "172.20.20.1",
         "ipv6-subnet": "2001:172:20:20::/64",
@@ -23,7 +23,7 @@
       "longname": "clab-arista-lab-upload-test-upload-ceos01",
       "fqdn": "upload-ceos01.arista-lab-upload-test.io",
       "group": "",
-      "labdir": "/opt/clab_automation_project/clab-arista-lab-upload-test/upload-ceos01",
+      "labdir": "/home/cperauer/clab/clab_automation_project/clab-arista-lab-upload-test/upload-ceos01",
       "kind": "ceos",
       "image": "h4ndzdatm0ld/ceosimage:4.28.0F",
       "mgmt-net": "",
@@ -32,17 +32,19 @@
       "mgmt-ipv4-prefix-length": 24,
       "mgmt-ipv6-address": "2001:172:20:20::2",
       "mgmt-ipv6-prefix-length": 64,
-      "mac-address": "00:1c:73:f1:5c:18",
+      "mac-address": "00:1c:73:9d:11:27",
       "labels": {
-        "clab-mgmt-net-bridge": "br-fc336bc621db",
+        "clab-mgmt-net-bridge": "br-080a6b938ab7",
         "clab-node-group": "",
         "clab-node-kind": "ceos",
-        "clab-node-lab-dir": "/opt/clab_automation_project/clab-arista-lab-upload-test/upload-ceos01",
+        "clab-node-lab-dir": "/home/cperauer/clab/clab_automation_project/clab-arista-lab-upload-test/upload-ceos01",
         "clab-node-name": "upload-ceos01",
         "clab-node-type": "",
         "clab-topo-file": "/opt/clab_automation_project/labs/arista-2-device-test-lab/arista-2device-lab.yml",
         "containerlab": "arista-lab-upload-test"
-      }
+      },
+      "port-bindings": [
+      ]
     },
     "upload-ceos02": {
       "index": "1",
@@ -50,7 +52,7 @@
       "longname": "clab-arista-lab-upload-test-upload-ceos02",
       "fqdn": "upload-ceos02.arista-lab-upload-test.io",
       "group": "",
-      "labdir": "/opt/clab_automation_project/clab-arista-lab-upload-test/upload-ceos02",
+      "labdir": "/home/cperauer/clab/clab_automation_project/clab-arista-lab-upload-test/upload-ceos02",
       "kind": "ceos",
       "image": "h4ndzdatm0ld/ceosimage:4.28.0F",
       "mgmt-net": "",
@@ -59,17 +61,19 @@
       "mgmt-ipv4-prefix-length": 24,
       "mgmt-ipv6-address": "2001:172:20:20::3",
       "mgmt-ipv6-prefix-length": 64,
-      "mac-address": "00:1c:73:58:3e:3c",
+      "mac-address": "00:1c:73:c4:5f:84",
       "labels": {
-        "clab-mgmt-net-bridge": "br-fc336bc621db",
+        "clab-mgmt-net-bridge": "br-080a6b938ab7",
         "clab-node-group": "",
         "clab-node-kind": "ceos",
-        "clab-node-lab-dir": "/opt/clab_automation_project/clab-arista-lab-upload-test/upload-ceos02",
+        "clab-node-lab-dir": "/home/cperauer/clab/clab_automation_project/clab-arista-lab-upload-test/upload-ceos02",
         "clab-node-name": "upload-ceos02",
         "clab-node-type": "",
         "clab-topo-file": "/opt/clab_automation_project/labs/arista-2-device-test-lab/arista-2device-lab.yml",
         "containerlab": "arista-lab-upload-test"
-      }
+      },
+      "port-bindings": [
+      ]
     }
   },
   "links": [
@@ -77,13 +81,13 @@
       "a": {
         "node": "upload-ceos01",
         "interface": "eth1",
-        "mac": "aa:c1:ab:f6:31:58",
+        "mac": "aa:c1:ab:3e:71:5f",
         "peer": "z"
       },
       "z": {
         "node": "upload-ceos02",
         "interface": "eth1",
-        "mac": "aa:c1:ab:19:38:76",
+        "mac": "aa:c1:ab:f9:0a:6c",
         "peer": "a"
       }
     }

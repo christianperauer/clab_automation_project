@@ -1,9 +1,9 @@
-! Startup-config last modified at Tue Jan 24 23:41:00 2023 by root
+! Startup-config last modified at Tue Aug  8 17:31:30 2023 by admin
 ! device: upload-ceos01 (cEOSLab, EOS-4.28.0F-26924507.4280F (engineering build))
 !
 no aaa root
 !
-username admin privilege 15 role network-admin secret sha512 $6$msOJ43uiL7HgHsWY$2RSO/Zcapyyustx2eH/Y7aHrxWoVNMLNnWfjF1QQmMYk3KMdizifb8PEOAY4n1Ji.PwA0ukzFveMUtnUhFvqo0
+username admin privilege 15 role network-admin secret sha512 $6$0Go9jMzTjH23CBta$l/AqAU3jL7Cjt2lGpALC13sLOmQWhEuaCHXLRs.lLX7AL5aNksrejbCNBDn/nnKZGccJbXUtuc0aBzlPFqwYp.
 !
 transceiver qsfp default-mode 4x10G
 !
@@ -21,6 +21,8 @@ management api gnmi
 !
 management api netconf
    transport ssh default
+!
+aaa authorization exec default local
 !
 interface Ethernet1
 !

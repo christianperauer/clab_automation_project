@@ -36,7 +36,6 @@ def load_page():
                         st.text(lab.stderr)
                 elif lab.returncode == 1:
                     st.error("There was a problem loading the lab")
-
                     with st.expander("Lab load logs"):
                         st.text(lab.stderr)
             elif lab_check.returncode == 0 and lab_check.stdout is not None:
@@ -45,6 +44,21 @@ def load_page():
                     st.code(utils.clab_function("inspect", option).stdout)
             elif lab_check.returncode == 1:
                 st.error('Error checking if lab is running', icon="🚨")
+                with st.spinner(text="Lab loading..."):
+                    lab = utils.clab_function("deploy", option)
+                st.success("Complete")
+                if lab.returncode == 0:
+                    st.success('Lab loaded successfully!', icon="✅")
+                    with st.expander("Lab load details"):
+                        st.code(lab.stdout)
+                    st.subheader("Logs")
+                    with st.expander("Lab load logs"):
+                        st.text(lab.stderr)
+                elif lab.returncode == 1:
+                    st.error("There was a problem loading the lab")
+
+                    with st.expander("Lab load logs"):
+                        st.text(lab.stderr)
 
 
 
