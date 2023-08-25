@@ -43,7 +43,7 @@ def load_page():
                 with st.expander("Running lab details"):
                     st.code(utils.clab_function("inspect", option).stdout)
             elif lab_check.returncode == 1:
-                st.error('Error checking if lab is running', icon="🚨")
+                st.warning('Starting Lab, Please wait...', icon="⚠️")
                 with st.spinner(text="Lab loading..."):
                     lab = utils.clab_function("deploy", option)
                 st.success("Complete")

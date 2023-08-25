@@ -71,7 +71,7 @@ def clab_function(lab_function, lab_option):
     lab_full_path = f"{labs_parent_dir}/{lab_details['localLabFolder']}/{lab_details['labFile']}"
     lab_path_check = Path(lab_full_path)
     if lab_path_check.is_file():
-        return subprocess.run(['sudo', 'containerlab', lab_function, '-t', lab_full_path], text=True, check=True, capture_output=True)
+        return subprocess.run(['sudo', 'containerlab', lab_function, '-t', lab_full_path], text=True, check=False, capture_output=True)
     else:
         return lab_full_path
 
