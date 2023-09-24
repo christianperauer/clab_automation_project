@@ -1,0 +1,2 @@
+links:
+- endpoints: "['ceos2:eth1', 'ceos1:eth1']"
