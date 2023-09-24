@@ -45,7 +45,7 @@ def reformat_yaml_txt(file):
 
     # pprint.pprint(disp_data_new)
 
-reformat_yaml_txt("dynamic_topology.txt")
+    p = Path("dynamic_topology.txt")
+    p.rename(p.with_suffix('.yml'))
 
-p = Path("dynamic_topology.txt")
-p.rename(p.with_suffix('.yml'))
+reformat_yaml_txt("dynamic_topology.txt")
