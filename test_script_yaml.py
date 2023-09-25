@@ -1,8 +1,15 @@
 import ruamel.yaml as yaml
 import pprint
 import re
+import sys
 # import yaml
 
+
+# Adding Function to exit program for completeness
+
+def exit_program():
+    print("Exiting the Program...")
+    sys.exit(0)
 
 # Create a dictionary representing the lab name
 lab_name = {}
@@ -41,6 +48,7 @@ remote_eth = 1
 # Verify correct number of device - Minimun 2 and Max 20
 if num_nodes < 1 or num_nodes > 20:
     print("Please pick a number of devices between 2 and 20")
+    exit_program()
 else:
     # Iterate through the number of selected nodes, create and append to list
     for node_c in range(1, num_nodes + 1):
