@@ -23,7 +23,9 @@ num_nodes = int(input("Enter the number of nodes: "))
 # Define the LAB name
 # Creating a Function that Verifies Lab valid name or not
 def is_valid_lab_name(name):
-    if name is None:
+    if name == '':
+        return False
+    elif name is None:
         return False
     elif " " in name:
         return False
@@ -44,6 +46,9 @@ while True:
 # Defining initial Eth values for connecting interfaces
 local_eth = 1
 remote_eth = 1
+current_link = 1
+current_node = 1
+total_links = num_nodes - 1
 
 # Verify correct number of device - Minimun 2 and Max 20
 if num_nodes < 1 or num_nodes > 20:
@@ -62,12 +67,20 @@ else:
 
         # Building connecting links
         node_count = 1
-        topology['topology'][1]['links'].append(
-            {'endpoints': [
-                f"{node_name}:eth{local_eth}", f"ceos{node_count + 1}:eth{remote_eth}"
-            ]
-            }
-        )
+
+        # Verifying if Total Links and Total Nodes Ration checks
+        if current_link <= total_links:
+            topology['topology'][1]['links'].append(
+                {'endpoints': [
+                    f"ceos{current_node}:eth{current_link}", 
+                    f"ceos{current_node + 1}:eth{current_link}"
+                ]
+                }
+            )
+
+        # Changing Link and Node Count
+        current_node += 1
+        current_link += 1
 
         # Changing connecting devices
         local_eth += 1
