@@ -1,0 +1,37 @@
+! Startup-config last modified at Sun Sep 17 19:49:13 2023 by root
+! device: node1-1 (cEOSLab, EOS-4.28.0F-26924507.4280F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$ZppSRv5Z0R29cul0$qkHqOdS8Gcn/Dhl1Yca7K/N3pI/3NbUUllQDa6w1WXZgjlZaOtYuKeXK2tRdcKTli/CLZjIZT4UUMJt6FE9LI.
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname node1-1
+!
+spanning-tree mode mstp
+!
+management api http-commands
+   no shutdown
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+interface Ethernet1
+!
+interface Management0
+   ip address 172.20.20.3/24
+   ipv6 address 2001:172:20:20::3/64
+!
+no ip routing
+!
+ip route 0.0.0.0/0 172.20.20.1
+!
+ipv6 route ::/0 2001:172:20:20::1
+!
+end

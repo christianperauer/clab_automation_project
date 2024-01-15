@@ -1,0 +1,138 @@
+{
+  "name": "Testing_Topology_v1",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-c2864b751c05",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "2001:172:20:20::/64",
+        "ipv6-gw": "2001:172:20:20::1",
+        "mtu": "1500",
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "ceos1": {
+      "index": "0",
+      "shortname": "ceos1",
+      "longname": "clab-Testing_Topology_v1-ceos1",
+      "fqdn": "ceos1.Testing_Topology_v1.io",
+      "group": "",
+      "labdir": "/home/cperauer/clab_automation_project/clab-Testing_Topology_v1/ceos1",
+      "kind": "ceos",
+      "image": "h4ndzdatm0ld/ceosimage:4.28.0F",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.20.20.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::4",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "00:1c:73:b0:00:d2",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-c2864b751c05",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/cperauer/clab_automation_project/clab-Testing_Topology_v1/ceos1",
+        "clab-node-name": "ceos1",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/cperauer/clab_automation_project/dynamic_topology.yaml",
+        "containerlab": "Testing_Topology_v1"
+      },
+      "port-bindings": [
+      ]
+    },
+    "ceos2": {
+      "index": "1",
+      "shortname": "ceos2",
+      "longname": "clab-Testing_Topology_v1-ceos2",
+      "fqdn": "ceos2.Testing_Topology_v1.io",
+      "group": "",
+      "labdir": "/home/cperauer/clab_automation_project/clab-Testing_Topology_v1/ceos2",
+      "kind": "ceos",
+      "image": "h4ndzdatm0ld/ceosimage:4.28.0F",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.20.20.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::3",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "00:1c:73:cc:97:49",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-c2864b751c05",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/cperauer/clab_automation_project/clab-Testing_Topology_v1/ceos2",
+        "clab-node-name": "ceos2",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/cperauer/clab_automation_project/dynamic_topology.yaml",
+        "containerlab": "Testing_Topology_v1"
+      },
+      "port-bindings": [
+      ]
+    },
+    "ceos3": {
+      "index": "2",
+      "shortname": "ceos3",
+      "longname": "clab-Testing_Topology_v1-ceos3",
+      "fqdn": "ceos3.Testing_Topology_v1.io",
+      "group": "",
+      "labdir": "/home/cperauer/clab_automation_project/clab-Testing_Topology_v1/ceos3",
+      "kind": "ceos",
+      "image": "h4ndzdatm0ld/ceosimage:4.28.0F",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.20.20.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::2",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "00:1c:73:29:b6:55",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-c2864b751c05",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/cperauer/clab_automation_project/clab-Testing_Topology_v1/ceos3",
+        "clab-node-name": "ceos3",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/cperauer/clab_automation_project/dynamic_topology.yaml",
+        "containerlab": "Testing_Topology_v1"
+      },
+      "port-bindings": [
+      ]
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "ceos1",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:27:c6:d6",
+        "peer": "z"
+      },
+      "z": {
+        "node": "ceos2",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:d2:9a:e1",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "ceos2",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:8b:e3:aa",
+        "peer": "z"
+      },
+      "z": {
+        "node": "ceos3",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:11:6b:35",
+        "peer": "a"
+      }
+    }
+  ]
+}

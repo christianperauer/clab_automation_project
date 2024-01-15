@@ -1,0 +1,10 @@
+all:
+  children:
+    ceos:
+      hosts:
+        clab-Testing_Topology_v1-ceos1:
+          ansible_host: 172.20.20.4
+        clab-Testing_Topology_v1-ceos2:
+          ansible_host: 172.20.20.3
+        clab-Testing_Topology_v1-ceos3:
+          ansible_host: 172.20.20.2

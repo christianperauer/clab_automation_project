@@ -256,3 +256,162 @@
 # # Write the modified data back to the YAML file
 # with open('dynamic_topology.yaml', 'w') as file:
 #     yaml.dump(disp_data, file, default_flow_style=False)
+
+import itertools
+
+edge_count = int(input("Enter the total number of edges: "))
+
+mid_count = int(input("Enter the total number of mid devices: "))
+
+right_edge = []
+left_edge = []
+right_list = []
+left_list = []
+edge_devices = []
+mid_devices = []
+top_mids = []
+bottom_mids = []
+
+is_core = True
+
+# if edge_count > 3 and edge_count %2 == 0 and is_core == True:
+#     print(edge_count)
+#     left_list = [f"ceos{node}" for node in range(1, edge_count + 1) if node %2 == 0]
+#     right_list = [f"ceos{node}" for node in range(1, edge_count) if node %2 != 0]
+# elif edge_count %2 != 0:
+#     print("Please select an even number of Edges")
+
+edge_devices = [f"ceos-pe{node}" for node in range(1, edge_count + 1) if node > 0]
+left_list = edge_devices[0::2]
+right_list = edge_devices[1::2]
+
+mid_devices = [f"ceos-p{node}" for node in range(1, mid_count + 1) if node > 0]
+top_mids = mid_devices[0::2]
+bottom_mids = mid_devices[1::2]
+
+
+
+
+print("EDGE DEVICES")
+print("-"*len("EDGE DEVICES"))
+print()
+print(edge_devices)
+print()
+print("EDGE LEFT")
+print("-"*len("EDGE LEFT"))
+print()
+print(left_list)
+print()
+print("EDGE RIGHT")
+print("-"*len("EDGE RIGHT"))
+print()
+print(right_list)
+print()
+print("MID DEVICES")
+print("-"*len("MID DEVICES"))
+print()
+print(mid_devices)
+print()
+print("TOP MIDS")
+print("-"*len("TOP MIDS"))
+print()
+print(top_mids)
+print()
+print("BOTTOM MIDS")
+print("-"*len("BOTTOM MIDS"))
+print()
+print(bottom_mids)
+
+## LINKS DEFINITION
+
+per_pr = []
+peb_pb = []
+per_pb = []
+peb_pr = []
+pr_pb = []
+pb_pr = []
+pr_pr = []
+pb_pb = []
+
+
+# print()
+# print()
+# print(len(top_mids))
+# print(top_mids)
+# print(len(bottom_mids))
+# print(bottom_mids)
+# print(len(left_list))
+# print(left_list)
+# print(len(right_list))
+# print(right_list)
+# print()
+
+
+# Deconstruct List Comprehension
+
+intf_num = 1
+
+
+# Scenario with only 1 PR and 2 PER
+def building_per_to_pr_one_pr():
+    if len(top_mids) == 1 and len(left_list) >= 2 and len(right_list) >= 2:
+        for (top_node,bottom_node) in zip(left_list,right_list):
+            if top_node == left_list[0]:
+                per_pr.append(f"{left_list[0]}:eth{intf_num}, {top_mids[0]}:eth{intf_num}")
+            elif top_node == left_list[-1]:
+                per_pr.append(f"{left_list[-1]}:eth{intf_num+1}, {top_mids[0]}:eth{intf_num+1}")
+    return per_pr
+
+
+# Scenario with only 1 PB and 2 PEB
+def building_peb_to_pb_one_pb():
+    if len(bottom_mids) == 1 and len(left_list) >= 2 and len(right_list) >= 2:
+        for (top_node,bottom_node) in zip(left_list,right_list):
+            if bottom_node == right_list[0]:
+                peb_pb.append(f"{right_list[0]}:eth{intf_num}, {bottom_mids[0]}:eth{intf_num}")
+            elif bottom_node == right_list[-1]:
+                peb_pb.append(f"{right_list[-1]}:eth{intf_num+1}, {bottom_mids[0]}:eth{intf_num+1}")
+    return peb_pb
+
+
+# Scenario with 2 or more PRs and 2 PER
+def building_per_to_pr_two_more_pr():
+    if len(top_mids) >= 2 and len(left_list) >= 2 and len(right_list) >= 2:
+        for (top_node,bottom_node) in zip(left_list,right_list):
+            if top_node == left_list[0]:
+                per_pr.append(f"{left_list[0]}:eth{intf_num}, {top_mids[0]}:eth{intf_num}")
+            elif top_node == left_list[-1]:
+                per_pr.append(f"{left_list[-1]}:eth{intf_num+1}, {top_mids[-1]}:eth{intf_num+1}")
+    return per_pr
+
+
+# Scenario with 2 or more PBs and 2 PEB
+def building_peb_to_pb_two_more_pb():
+    if len(top_mids) >= 2 and len(left_list) >= 2 and len(right_list) >= 2:
+        for (top_node,bottom_node) in zip(left_list,right_list):
+            if bottom_node == right_list[0]:
+                peb_pb.append(f"{right_list[0]}:eth{intf_num}, {bottom_mids[0]}:eth{intf_num}")
+            elif bottom_node == right_list[-1]:
+                peb_pb.append(f"{right_list[-1]}:eth{intf_num+1}, {bottom_mids[-1]}:eth{intf_num+1}")
+    return peb_pb
+
+
+if edge_count >= 4 and mid_count <= 2:
+    building_per_to_pr_one_pr()
+    building_peb_to_pb_one_pb()
+elif edge_count >= 4 and mid_count > 2:
+    building_per_to_pr_two_more_pr()
+    building_peb_to_pb_two_more_pb()
+
+
+print()
+print("PER To PR Links")
+print(len("PER To PR Links")*"-")
+print()
+print(per_pr)
+print()
+print("PEB To PB Links")
+print(len("PEB To PB Links")*"-")
+print()
+print(peb_pb)
+print()

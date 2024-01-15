@@ -1,0 +1,37 @@
+! Startup-config last modified at Wed Sep 20 18:32:58 2023 by root
+! device: ceos3 (cEOSLab, EOS-4.28.0F-26924507.4280F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$gZLlcthSuSZwsu0x$XxzS99pl2dQrk1r9ML.JOxIDlL.I27DA6XFe/uADNFPxvyC9u35U20xpnt18uXJqFZkOt4MkNFRii6spdBOSw1
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname ceos3
+!
+spanning-tree mode mstp
+!
+management api http-commands
+   no shutdown
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+interface Ethernet2
+!
+interface Management0
+   ip address 172.20.20.3/24
+   ipv6 address 2001:172:20:20::3/64
+!
+no ip routing
+!
+ip route 0.0.0.0/0 172.20.20.1
+!
+ipv6 route ::/0 2001:172:20:20::1
+!
+end

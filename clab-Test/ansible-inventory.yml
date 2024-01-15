@@ -1,0 +1,10 @@
+all:
+  children:
+    ceos:
+      hosts:
+        clab-Test-ceos1:
+          ansible_host: 172.20.20.4
+        clab-Test-ceos2:
+          ansible_host: 172.20.20.2
+        clab-Test-ceos3:
+          ansible_host: 172.20.20.3
