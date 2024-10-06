@@ -1,0 +1,13 @@
+name: arista_2_device_test_1
+topology:
+  links:
+  - endpoints:
+    - ceos_sw1:eth1
+    - ceos_sw2:eth1
+  nodes:
+    ceos_sw1:
+      image: h4ndzdatm0ld/ceosimage:4.28.0F
+      kind: ceos
+    ceos_sw2:
+      image: h4ndzdatm0ld/ceosimage:4.28.0F
+      kind: ceos

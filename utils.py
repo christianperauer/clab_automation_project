@@ -6,6 +6,7 @@ from tinydb import TinyDB, Query
 import config
 import os
 from pathlib import Path
+import paramiko
 
 db = TinyDB("labs.json", sort_keys=True, indent=4)
 Labs = Query()

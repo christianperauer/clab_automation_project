@@ -1,0 +1,8 @@
+all:
+  children:
+    ceos:
+      hosts:
+        clab-arista-2device-sample-lab-upload-ceos01:
+          ansible_host: 172.20.20.2
+        clab-arista-2device-sample-lab-upload-ceos02:
+          ansible_host: 172.20.20.3

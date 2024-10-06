@@ -23,7 +23,7 @@ def reformat_yaml_txt(file):
             counter += 1
 
 
-    # Reopening the file with "W" flag instead of "R" so we avoid using Truncate file so ew dont get the Byte error
+    # Reopening the file with "W" flag instead of "R" so we avoid using Truncate file so we dont get the Byte error
     with open("dynamic_topology.txt", "w") as txt_file:
         pass
         txt_file.writelines(disp_data_new)

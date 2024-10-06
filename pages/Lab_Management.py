@@ -130,7 +130,7 @@ def load_page():
 
     with delete_lab:
         st.title('Delete Lab')
-        st.subheader(':red[Only Labs with DB entry and Lab file present can be deleted]')
+        st.subheader('Only Labs with DB entry and Lab file present can be deleted')
         del_option = st.selectbox(
             'Select installed lab to remove',
             utils.get_db_labs()
